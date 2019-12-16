@@ -8,7 +8,7 @@ title:  "for(... in ...) or enumerateObjectsUsingBlock"
 
 ### 只遍历所有对象
 
-```Objective-C
+```objc
 NSMutableArray *myArr = [[NSMutableArray alloc] init];
 for (int i = 0; i < 10000; i ++) {
     [myArr addObject:[NSNumber numberWithInt:i]];
@@ -33,7 +33,7 @@ NSLog(@"for in %lf", [[[NSDate alloc] init] timeIntervalSinceDate:date0]);
 
 ### 遍历对象并执行耗时操作
 
-```Objective-C
+```objc
 NSDate *date0 = [[NSDate alloc] init];
 [myArr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     [self consumeSomeTime];
@@ -57,7 +57,7 @@ NSLog(@"for in %lf", [[[NSDate alloc] init] timeIntervalSinceDate:date0]);
 
 另外，上述并发，也可用`dispatch_apply`实现。
 
-```Objective-C
+```objc
 dispatch_apply([myArr count], dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^(size_t index) {
     [self consumeSomeTime];
 });
